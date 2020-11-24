@@ -47,6 +47,7 @@ else
    exit 1
 
 fi
+sudo -u nym -H ./nym-mixnode_linux_x86_64 upgrade
 }
 
 downloader && echo "ok" && sleep 2 || exit 1
