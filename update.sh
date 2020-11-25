@@ -64,9 +64,8 @@ function upgrade_nym () {
                 printf '%s\n' "" >> /etc/systemd/system/nym-mixnode.service
                 printf '%s\n' "[Install]" >> /etc/systemd/system/nym-mixnode.service
                 printf '%s\n' "WantedBy=multi-user.target" >> /etc/systemd/system/nym-mixnode.service
-    current_path=$(pwd)
     if
-      [ -e ${current_path}/nym-mixnode.service ]
+      [ -e /etc/systemd/system/nym-mixnode.service ]
     then
       printf "%b\n\n\n" "${WHITE} Your systemd script with id $directory was ${LGREEN} successfully update !"
     else
