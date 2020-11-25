@@ -23,18 +23,19 @@ fi
 #current_version=$(./nym-mixnode_linux_x86_64 --version | grep Nym | cut -c 13- )
 VERSION=$(curl https://github.com/nymtech/nym/releases/latest --cacert /etc/ssl/certs/ca-certificates.crt 2>/dev/null | egrep -o "[0-9|\.]{5}(-\w+)?")
 #VERSION=$(0)
-URL="https://github.com/nymtech/nym/releases/download/v0.9.1/nym-mixnode_linux_x86_64"
+#URL="https://github.com/nymtech/nym/releases/download/v0.9.1/nym-mixnode_linux_x86_64"
 
 # Check if the version is up to date. If not, fetch the latest release.
 if [ ! -f nym-mixnode_linux_x86_64 ] || [ "$(./nym-mixnode_linux_x86_64 --version | grep Nym | cut -c 13- )" != "$VERSION" ]
    then
        if systemctl list-units --state=running | grep nym-mixnode
           then echo "stopping nym-mixnode.service to update the node ..." && systemctl stop nym-mixnode
+	  	sleep 3
 	  	sudo rm /home/nym/nym-mixnode_linux_x86_64
-		curl -L -s "$URL" -o "nym-mixnode_linux_x86_64" --cacert /etc/ssl/certs/ca-certificates.crt && echo "Fetching the latest version" && pwd
-          else echo " nym-mixnode.service is inactive or not existing. Downloading new binaries ..."  && pwd
+		sudo -u nym wget https://github.com/nymtech/nym/releases/download/v0.9.1/nym-mixnode_linux_x86_64
+          else echo " nym-mixnode.service is inactive or not existing. Downloading new binaries ..."
 	  	sudo rm /home/nym/nym-mixnode_linux_x86_64
-		curl -L -s "$URL" -o "nym-mixnode_linux_x86_64" --cacert /etc/ssl/certs/ca-certificates.crt && echo "Fetching the latest version" && pwd
+		sudo -u nym wget https://github.com/nymtech/nym/releases/download/v0.9.1/nym-mixnode_linux_x86_64
 	   # Make it executable
    sudo -u nym chmod +x ./nym-mixnode_linux_x86_64 && chown nym:nym ./nym-mixnode_linux_x86_64
    chmod +x ./nym-mixnode_linux_x86_64 && chown nym:nym ./nym-mixnode_linux_x86_64   
@@ -74,6 +75,7 @@ function upgrade_nym () {
     else
       printf "%b\n\n\n" "${WHITE} Printing of the systemd script to the current folder ${RED} failed. ${WHITE} Do you have ${YELLOW} permissions ${WHITE} to ${YELLOW} write ${WHITE} in ${pwd} ${YELLOW}  directory ??? "
     fi
+cd /home/nym
 sudo -u nym -H ./nym-mixnode_linux_x86_64 upgrade --id /home/nym/.nym/mixnodes/NymMixNode    
 }
 #set -x
