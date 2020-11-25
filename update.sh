@@ -40,7 +40,6 @@ if [ ! -f nym-mixnode_linux_x86_64 ] || [ "$(./nym-mixnode_linux_x86_64 --versio
  # Make it executable
    sudo -u nym chmod +x ./nym-mixnode_linux_x86_64 && chown nym:nym ./nym-mixnode_linux_x86_64
 #   chmod +x ./nym-mixnode_linux_x86_64 && chown nym:nym ./nym-mixnode_linux_x86_64   
-   fi
 else
    echo "You have the latest version of Nym-mixnode $VERSION"
    exit 1
