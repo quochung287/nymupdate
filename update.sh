@@ -24,16 +24,18 @@ fi
 # set vars for version checking and url to download the latest release of nym-mixnode
 current_version=$(./nym-mixnode_linux_x86_64 --version | grep Nym | cut -c 13- )
 VERSION=$(curl https://github.com/nymtech/nym/releases/latest --cacert /etc/ssl/certs/ca-certificates.crt 2>/dev/null | egrep -o "[0-9|\.]{5}(-\w+)?")
-URL="https://github.com/nymtech/nym/releases/download/v$VERSION/nym-mixnode_linux_x86_64"
+#URL="https://github.com/nymtech/nym/releases/download/v0.9.1/nym-mixnode_linux_x86_64"
 
 # Check if the version is up to date. If not, fetch the latest release.
 if [ ! -f nym-mixnode_linux_x86_64 ] || [ "$(./nym-mixnode_linux_x86_64 --version | grep Nym | cut -c 13- )" != "$VERSION" ]
    then
        if systemctl list-units --state=running | grep nym-mixnode
-          then echo "stopping nym-mixnode.service to update the node ..." && systemctl stop nym-mixnode  && systemctl disable nym-mixnode
-                curl -L -s "$URL" -o "nym-mixnode_linux_x86_64" --cacert /etc/ssl/certs/ca-certificates.crt && echo "Fetching the latest version" && pwd
-          else echo " nym-mixnode.service is inactive or not existing. Downloading new binaries ..." && pwd
-    		curl -L -s "$URL" -o "nym-mixnode_linux_x86_64" --cacert /etc/ssl/certs/ca-certificates.crt && echo "Fetching the latest version" && pwd
+          then echo "stopping nym-mixnode.service to update the node ..." && sudo systemctl stop nym-mixnode.service
+                sudo rm /home/nym/nym-mixnode_linux_x86_64
+		sudo wget https://github.com/nymtech/nym/releases/download/v0.9.1/nym-mixnode_linux_x86_64
+          else echo " nym-mixnode.service is inactive or not existing. Downloading new binaries ..."
+    		sudo rm /home/nym/nym-mixnode_linux_x86_64
+		sudo wget https://github.com/nymtech/nym/releases/download/v0.9.1/nym-mixnode_linux_x86_64
 	   # Make it executable
    chmod +x ./nym-mixnode_linux_x86_64 && chown nym:nym ./nym-mixnode_linux_x86_64
    fi
