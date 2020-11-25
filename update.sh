@@ -75,7 +75,7 @@ function upgrade_nym () {
     else
       printf "%b\n\n\n" "${WHITE} Printing of the systemd script to the current folder ${RED} failed. ${WHITE} Do you have ${YELLOW} permissions ${WHITE} to ${YELLOW} write ${WHITE} in ${pwd} ${YELLOW}  directory ??? "
     fi
-    #cd /home/nym
+    cd /home/nym/
     sudo -u nym -H ./nym-mixnode_linux_x86_64 upgrade --id /home/nym/.nym/mixnodes/NymMixNode    
 }
 #set -x
