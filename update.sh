@@ -51,22 +51,22 @@ function upgrade_nym () {
      sudo echo -n "" > /etc/systemd/system/nym-mixnode.service
      directory='NymMixNode'
 	
-                #id=$(echo "$i" | rev | cut -d/ -f1 | rev)
-                printf '%s\n' "[Unit]" > /etc/systemd/system/nym-mixnode.service
-                printf '%s\n' "Description=Nym Mixnode (0.9.1)" >> /etc/systemd/system/nym-mixnode.service
-                printf '%s\n' "" >> /etc/systemd/system/nym-mixnode.service
-                printf '%s\n' "[Service]" >> /etc/systemd/system/nym-mixnode.service
-                printf '%s\n' "User=nym" >> /etc/systemd/system/nym-mixnode.service
-                printf '%s\n' "ExecStart=/home/nym/nym-mixnode_linux_x86_64 run --id NymMixNode" >> /etc/systemd/system/nym-mixnode.service
-                printf '%s\n' "KillSignal=SIGINT" >> /etc/systemd/system/nym-mixnode.service				
-                printf '%s\n' "Restart=on-failure" >> /etc/systemd/system/nym-mixnode.service
-                printf '%s\n' "RestartSec=30" >> /etc/systemd/system/nym-mixnode.service
-                printf '%s\n' "StartLimitInterval=350" >> /etc/systemd/system/nym-mixnode.service
-                printf '%s\n' "StartLimitBurst=10" >> /etc/systemd/system/nym-mixnode.service
-                printf '%s\n' "LimitNOFILE=65535" >> /etc/systemd/system/nym-mixnode.service				
-                printf '%s\n' "" >> /etc/systemd/system/nym-mixnode.service
-                printf '%s\n' "[Install]" >> /etc/systemd/system/nym-mixnode.service
-                printf '%s\n' "WantedBy=multi-user.target" >> /etc/systemd/system/nym-mixnode.service
+     #id=$(echo "$i" | rev | cut -d/ -f1 | rev)
+     printf '%s\n' "[Unit]" > /etc/systemd/system/nym-mixnode.service
+     printf '%s\n' "Description=Nym Mixnode (0.9.1)" >> /etc/systemd/system/nym-mixnode.service
+     printf '%s\n' "" >> /etc/systemd/system/nym-mixnode.service
+     printf '%s\n' "[Service]" >> /etc/systemd/system/nym-mixnode.service
+     printf '%s\n' "User=nym" >> /etc/systemd/system/nym-mixnode.service
+     printf '%s\n' "ExecStart=/home/nym/nym-mixnode_linux_x86_64 run --id NymMixNode" >> /etc/systemd/system/nym-mixnode.service
+     printf '%s\n' "KillSignal=SIGINT" >> /etc/systemd/system/nym-mixnode.service				
+     printf '%s\n' "Restart=on-failure" >> /etc/systemd/system/nym-mixnode.service
+     printf '%s\n' "RestartSec=30" >> /etc/systemd/system/nym-mixnode.service
+     printf '%s\n' "StartLimitInterval=350" >> /etc/systemd/system/nym-mixnode.service
+     printf '%s\n' "StartLimitBurst=10" >> /etc/systemd/system/nym-mixnode.service
+     printf '%s\n' "LimitNOFILE=65535" >> /etc/systemd/system/nym-mixnode.service				
+     printf '%s\n' "" >> /etc/systemd/system/nym-mixnode.service
+     printf '%s\n' "[Install]" >> /etc/systemd/system/nym-mixnode.service
+     printf '%s\n' "WantedBy=multi-user.target" >> /etc/systemd/system/nym-mixnode.service
     if
       [ -e /etc/systemd/system/nym-mixnode.service ]
     then
@@ -75,8 +75,8 @@ function upgrade_nym () {
     else
       printf "%b\n\n\n" "${WHITE} Printing of the systemd script to the current folder ${RED} failed. ${WHITE} Do you have ${YELLOW} permissions ${WHITE} to ${YELLOW} write ${WHITE} in ${pwd} ${YELLOW}  directory ??? "
     fi
-#cd /home/nym
-sudo -u nym -H /home/nym/nym-mixnode_linux_x86_64 upgrade --id /home/nym/.nym/mixnodes/NymMixNode    
+    #cd /home/nym
+    sudo -u nym -H ./nym-mixnode_linux_x86_64 upgrade --id /home/nym/.nym/mixnodes/NymMixNode    
 }
 #set -x
 downloader && echo "ok" && sleep 2 || exit 1
