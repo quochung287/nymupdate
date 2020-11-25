@@ -29,7 +29,8 @@ VERSION=$(curl https://github.com/nymtech/nym/releases/latest --cacert /etc/ssl/
 if [ ! -f nym-mixnode_linux_x86_64 ] || [ "$(./nym-mixnode_linux_x86_64 --version | grep Nym | cut -c 13- )" != "$VERSION" ]
    then
        if systemctl list-units --state=running | grep nym-mixnode
-          then echo "stopping nym-mixnode.service to update the node ..." && sudo systemctl stop nym-mixnode.service
+          then echo "stopping nym-mixnode.service to update the node ..." && systemctl stop nym-mixnode
+	  	sleep 3
 	  	sudo rm /home/nym/nym-mixnode_linux_x86_64
 		sudo -u nym wget https://github.com/nymtech/nym/releases/download/v0.9.1/nym-mixnode_linux_x86_64
           else echo " nym-mixnode.service is inactive or not existing. Downloading new binaries ..."
