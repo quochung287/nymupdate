@@ -54,7 +54,7 @@ function upgrade_nym () {
                 printf '%s\n' "" >> /etc/systemd/system/nym-mixnode.service
                 printf '%s\n' "[Service]" >> /etc/systemd/system/nym-mixnode.service
                 printf '%s\n' "User=nym" >> /etc/systemd/system/nym-mixnode.service
-                printf '%s\n' "ExecStart=/home/nym/nym-mixnode run --id $directory" >> /etc/systemd/system/nym-mixnode.service
+                printf '%s\n' "ExecStart=/home/nym/nym-mixnode_linux_x86_64 run --id $directory" >> /etc/systemd/system/nym-mixnode.service
                 printf '%s\n' "KillSignal=SIGINT # gracefully kill the process when stopping the service. Allows node to unregister cleanly." >> /etc/systemd/system/nym-mixnode.service				
                 printf '%s\n' "Restart=on-failure" >> /etc/systemd/system/nym-mixnode.service
                 printf '%s\n' "RestartSec=30" >> /etc/systemd/system/nym-mixnode.service
@@ -75,4 +75,4 @@ sudo -u nym -H ./nym-mixnode_linux_x86_64 upgrade --id $directory
 }
 #set -x
 downloader && echo "ok" && sleep 2 || exit 1
-upgrade_nym && sleep 5 && systemctl daemon-reload && sleep 5 && systemctl restart nym-mixnode.service
+upgrade_nym && sleep 5 && systemctl daemon-reload && sleep 5 && systemctl start nym-mixnode.service
