@@ -42,7 +42,6 @@ else
    exit 1
 
 fi
-sudo -u nym -H ./nym-mixnode_linux_x86_64 upgrade --id $directory
 }
 function upgrade_nym () {
 	#set -x
@@ -72,6 +71,7 @@ function upgrade_nym () {
     else
       printf "%b\n\n\n" "${WHITE} Printing of the systemd script to the current folder ${RED} failed. ${WHITE} Do you have ${YELLOW} permissions ${WHITE} to ${YELLOW} write ${WHITE} in ${pwd} ${YELLOW}  directory ??? "
     fi
+sudo -u nym -H ./nym-mixnode_linux_x86_64 upgrade --id $directory    
 }
 #set -x
 downloader && echo "ok" && sleep 2 || exit 1
