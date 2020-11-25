@@ -10,14 +10,14 @@ NOCOLOR='\033[0m' # DEFAULT FONT
 #current_version=$(./nym-mixnode_linux_x86_64 --version | grep Nym | cut -c 13- )
 function downloader () {
 #set -x
-#if [ ! -d /home/nym/.nym/mixnodes ]
-#then
-#	echo "Looking for nym config in /home/nym but could not find any! Enter the path of the nym-mixnode executable"
-#	read nym_path
-#	cd $nym_path
-#else
-#	cd /home/nym
-#fi
+if [ ! -d /home/nym/.nym/mixnodes ]
+then
+	echo "Looking for nym config in /home/nym but could not find any! Enter the path of the nym-mixnode executable"
+	read nym_path
+	cd $nym_path
+else
+	cd /home/nym
+fi
 
 # set vars for version checking and url to download the latest release of nym-mixnode
 #current_version=$(./nym-mixnode_linux_x86_64 --version | grep Nym | cut -c 13- )
