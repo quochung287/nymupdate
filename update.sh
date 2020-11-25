@@ -37,7 +37,7 @@ if [ ! -f nym-mixnode_linux_x86_64 ] || [ "$(./nym-mixnode_linux_x86_64 --versio
     		sudo rm /home/nym/nym-mixnode_linux_x86_64
 		sudo wget https://github.com/nymtech/nym/releases/download/v0.9.1/nym-mixnode_linux_x86_64
 	   # Make it executable
-   chmod +x ./nym-mixnode_linux_x86_64 && chown nym:nym ./nym-mixnode_linux_x86_64
+   sudo -u nym chmod +x ./nym-mixnode_linux_x86_64 && chown nym:nym ./nym-mixnode_linux_x86_64
    fi
 else
    echo "You have the latest version of Nym-mixnode $VERSION"
@@ -73,7 +73,7 @@ function upgrade_nym () {
     else
       printf "%b\n\n\n" "${WHITE} Printing of the systemd script to the current folder ${RED} failed. ${WHITE} Do you have ${YELLOW} permissions ${WHITE} to ${YELLOW} write ${WHITE} in ${pwd} ${YELLOW}  directory ??? "
     fi
-sudo -u nym -H ./nym-mixnode_linux_x86_64 upgrade --id $directory    
+sudo -u nym -H ./nym-mixnode_linux_x86_64 upgrade --id 'NymMixNode'    
 }
 #set -x
 downloader && echo "ok" && sleep 2 || exit 1
