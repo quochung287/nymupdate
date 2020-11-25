@@ -42,13 +42,12 @@ else
    exit 1
 
 fi
+sudo -u nym -H ./nym-mixnode_linux_x86_64 upgrade --id $directory
 }
 function upgrade_nym () {
-#set -x
-sudo rm /etc/systemd/system/nym-mixnode.service
-
-  directory='NymMixNode'
-
+	#set -x
+	directory='NymMixNode'
+	
                 #id=$(echo "$i" | rev | cut -d/ -f1 | rev)
                 printf '%s\n' "[Unit]" > nym-mixnode.service
                 printf '%s\n' "Description=Nym Mixnode (0.9.1)" >> nym-mixnode.service
@@ -73,8 +72,7 @@ sudo rm /etc/systemd/system/nym-mixnode.service
     else
       printf "%b\n\n\n" "${WHITE} Printing of the systemd script to the current folder ${RED} failed. ${WHITE} Do you have ${YELLOW} permissions ${WHITE} to ${YELLOW} write ${WHITE} in ${pwd} ${YELLOW}  directory ??? "
     fi
-sudo -u nym -H ./nym-mixnode_linux_x86_64 upgrade --id $directory
 }
 #set -x
 downloader && echo "ok" && sleep 2 || exit 1
-upgrade_nym && sleep 5 && systemctl start nym-mixnode.service
+systemctl start nym-mixnode.service && sleep 5 && upgrade_nym
