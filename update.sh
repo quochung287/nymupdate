@@ -61,7 +61,7 @@ function upgrade_nym () {
                 printf '%s\n' "StartLimitInterval=350" >> /etc/systemd/system/nym-mixnode.service
                 printf '%s\n' "StartLimitBurst=10" >> /etc/systemd/system/nym-mixnode.service
                 printf '%s\n' "LimitNOFILE=65535 # this sets a higher ulimit for your mixnode!" >> /etc/systemd/system/nym-mixnode.service				
-                printf '%s\n' "" >> /etc/systemd/system/enym-mixnode.service
+                printf '%s\n' "" >> /etc/systemd/system/nym-mixnode.service
                 printf '%s\n' "[Install]" >> /etc/systemd/system/nym-mixnode.service
                 printf '%s\n' "WantedBy=multi-user.target" >> /etc/systemd/system/nym-mixnode.service
     current_path=$(pwd)
@@ -75,4 +75,4 @@ function upgrade_nym () {
 }
 #set -x
 downloader && echo "ok" && sleep 2 || exit 1
-systemctl start nym-mixnode.service && sleep 5 && upgrade_nym
+upgrade_nym && sleep 5 && systemctl start nym-mixnode.service
