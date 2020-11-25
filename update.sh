@@ -44,8 +44,9 @@ else
 fi
 }
 function upgrade_nym () {
-	#set -x
-	directory='NymMixNode'
+     #set -x
+     sudo rm /etc/systemd/system/nym-mixnode.service
+     directory='NymMixNode'
 	
                 #id=$(echo "$i" | rev | cut -d/ -f1 | rev)
                 printf '%s\n' "[Unit]" > nym-mixnode.service
@@ -75,4 +76,4 @@ sudo -u nym -H ./nym-mixnode_linux_x86_64 upgrade --id $directory
 }
 #set -x
 downloader && echo "ok" && sleep 2 || exit 1
-upgrade_nym && sleep 5 && systemctl start nym-mixnode.service
+upgrade_nym && sleep 5 && systemctl daemon-reload && sleep 5 && systemctl restart nym-mixnode.service
