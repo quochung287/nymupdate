@@ -23,7 +23,7 @@ fi
 
 # set vars for version checking and url to download the latest release of nym-mixnode
 current_version=$(./nym-mixnode_linux_x86_64 --version | grep Nym | cut -c 13- )
-VERSION=$(curl https://github.com/nymtech/nym/releases/latest --cacert /etc/ssl/certs/ca-certificates.crt 2>/dev/null | egrep -o "[0-9|\.]{5}(-\w+)?")
+#VERSION=$(curl https://github.com/nymtech/nym/releases/latest --cacert /etc/ssl/certs/ca-certificates.crt 2>/dev/null | egrep -o "[0-9|\.]{5}(-\w+)?")
 VERSION=$(0)
 #URL="https://github.com/nymtech/nym/releases/download/v0.9.1/nym-mixnode_linux_x86_64"
 
@@ -32,11 +32,11 @@ if [ ! -f nym-mixnode_linux_x86_64 ] || [ "$(./nym-mixnode_linux_x86_64 --versio
    then
        if systemctl list-units --state=running | grep nym-mixnode
           then echo "stopping nym-mixnode.service to update the node ..." && sudo systemctl stop nym-mixnode.service
-                sudo rm /home/nym/nym-mixnode_linux_x86_64
-		sudo wget https://github.com/nymtech/nym/releases/download/v0.9.1/nym-mixnode_linux_x86_64
+	  	sudo -u nym mv nym-mixnode_linux_x86_64 nym-mixnode_linux_x86_64_0.9.0
+		sudo -u nym wget https://github.com/nymtech/nym/releases/download/v0.9.1/nym-mixnode_linux_x86_64
           else echo " nym-mixnode.service is inactive or not existing. Downloading new binaries ..."
-    		sudo rm /home/nym/nym-mixnode_linux_x86_64
-		sudo wget https://github.com/nymtech/nym/releases/download/v0.9.1/nym-mixnode_linux_x86_64
+	  	sudo -u nym mv nym-mixnode_linux_x86_64 nym-mixnode_linux_x86_64_0.9.0
+		sudo -u nym wget https://github.com/nymtech/nym/releases/download/v0.9.1/nym-mixnode_linux_x86_64
 	   # Make it executable
    sudo -u nym chmod +x ./nym-mixnode_linux_x86_64 && chown nym:nym ./nym-mixnode_linux_x86_64
    chmod +x ./nym-mixnode_linux_x86_64 && chown nym:nym ./nym-mixnode_linux_x86_64   
@@ -49,7 +49,7 @@ fi
 }
 function upgrade_nym () {
      #set -x
-     sudo rm /etc/systemd/system/nym-mixnode.service
+     sudo echo -n "" > /etc/systemd/system/nym-mixnode.service
      directory='NymMixNode'
 	
                 #id=$(echo "$i" | rev | cut -d/ -f1 | rev)
@@ -75,7 +75,7 @@ function upgrade_nym () {
     else
       printf "%b\n\n\n" "${WHITE} Printing of the systemd script to the current folder ${RED} failed. ${WHITE} Do you have ${YELLOW} permissions ${WHITE} to ${YELLOW} write ${WHITE} in ${pwd} ${YELLOW}  directory ??? "
     fi
-sudo -u nym -H ./nym-mixnode_linux_x86_64 upgrade --id 'NymMixNode'    
+sudo -u nym -H ./nym-mixnode_linux_x86_64 upgrade --id /home/nym/.nym/mixnodes/NymMixNode    
 }
 #set -x
 downloader && echo "ok" && sleep 2 || exit 1
