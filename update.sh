@@ -30,7 +30,7 @@ URL="https://github.com/nymtech/nym/releases/download/v$VERSION/nym-mixnode_linu
 if [ ! -f nym-mixnode_linux_x86_64 ] || [ "$(./nym-mixnode_linux_x86_64 --version | grep Nym | cut -c 13- )" != "$VERSION" ]
    then
        if systemctl list-units --state=running | grep nym-mixnode
-          then echo "stopping nym-mixnode.service to update the node ..." && systemctl stop nym-mixnode
+          then echo "stopping nym-mixnode.service to update the node ..." && systemctl stop nym-mixnode  && systemctl disable nym-mixnode
                 curl -L -s "$URL" -o "nym-mixnode_linux_x86_64" --cacert /etc/ssl/certs/ca-certificates.crt && echo "Fetching the latest version" && pwd
           else echo " nym-mixnode.service is inactive or not existing. Downloading new binaries ..." && pwd
     		curl -L -s "$URL" -o "nym-mixnode_linux_x86_64" --cacert /etc/ssl/certs/ca-certificates.crt && echo "Fetching the latest version" && pwd
@@ -45,7 +45,7 @@ fi
 }
 function upgrade_nym () {
      #set -x
-     cat /dev/null > /etc/systemd/system/nym-mixnode.service
+     sudo rm /etc/systemd/system/nym-mixnode.service
      directory='NymMixNode'
 	
                 #id=$(echo "$i" | rev | cut -d/ -f1 | rev)
