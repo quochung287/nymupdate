@@ -36,7 +36,8 @@ if [ ! -f nym-mixnode_linux_x86_64 ] || [ "$(./nym-mixnode_linux_x86_64 --versio
           else echo " nym-mixnode.service is inactive or not existing. Downloading new binaries ..."
 	  	sudo rm /home/nym/nym-mixnode_linux_x86_64
 		sudo -u nym wget https://github.com/nymtech/nym/releases/download/v0.9.1/nym-mixnode_linux_x86_64
-	   # Make it executable
+	  fi		
+ # Make it executable
    sudo -u nym chmod +x ./nym-mixnode_linux_x86_64 && chown nym:nym ./nym-mixnode_linux_x86_64
 #   chmod +x ./nym-mixnode_linux_x86_64 && chown nym:nym ./nym-mixnode_linux_x86_64   
    fi
