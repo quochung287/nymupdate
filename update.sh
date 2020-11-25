@@ -45,7 +45,7 @@ fi
 }
 function upgrade_nym () {
      #set -x
-     sudo rm /etc/systemd/system/nym-mixnode.service
+     cat /dev/null > /etc/systemd/system/nym-mixnode.service
      directory='NymMixNode'
 	
                 #id=$(echo "$i" | rev | cut -d/ -f1 | rev)
