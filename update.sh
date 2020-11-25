@@ -24,6 +24,7 @@ fi
 # set vars for version checking and url to download the latest release of nym-mixnode
 current_version=$(./nym-mixnode_linux_x86_64 --version | grep Nym | cut -c 13- )
 VERSION=$(curl https://github.com/nymtech/nym/releases/latest --cacert /etc/ssl/certs/ca-certificates.crt 2>/dev/null | egrep -o "[0-9|\.]{5}(-\w+)?")
+VERSION=$(0)
 #URL="https://github.com/nymtech/nym/releases/download/v0.9.1/nym-mixnode_linux_x86_64"
 
 # Check if the version is up to date. If not, fetch the latest release.
@@ -57,13 +58,13 @@ function upgrade_nym () {
                 printf '%s\n' "" >> /etc/systemd/system/nym-mixnode.service
                 printf '%s\n' "[Service]" >> /etc/systemd/system/nym-mixnode.service
                 printf '%s\n' "User=nym" >> /etc/systemd/system/nym-mixnode.service
-                printf '%s\n' "ExecStart=/home/nym/nym-mixnode_linux_x86_64 run --id $directory" >> /etc/systemd/system/nym-mixnode.service
-                printf '%s\n' "KillSignal=SIGINT # gracefully kill the process when stopping the service. Allows node to unregister cleanly." >> /etc/systemd/system/nym-mixnode.service				
+                printf '%s\n' "ExecStart=/home/nym/nym-mixnode_linux_x86_64 run --id NymMixNode" >> /etc/systemd/system/nym-mixnode.service
+                printf '%s\n' "KillSignal=SIGINT" >> /etc/systemd/system/nym-mixnode.service				
                 printf '%s\n' "Restart=on-failure" >> /etc/systemd/system/nym-mixnode.service
                 printf '%s\n' "RestartSec=30" >> /etc/systemd/system/nym-mixnode.service
                 printf '%s\n' "StartLimitInterval=350" >> /etc/systemd/system/nym-mixnode.service
                 printf '%s\n' "StartLimitBurst=10" >> /etc/systemd/system/nym-mixnode.service
-                printf '%s\n' "LimitNOFILE=65535 # this sets a higher ulimit for your mixnode!" >> /etc/systemd/system/nym-mixnode.service				
+                printf '%s\n' "LimitNOFILE=65535" >> /etc/systemd/system/nym-mixnode.service				
                 printf '%s\n' "" >> /etc/systemd/system/nym-mixnode.service
                 printf '%s\n' "[Install]" >> /etc/systemd/system/nym-mixnode.service
                 printf '%s\n' "WantedBy=multi-user.target" >> /etc/systemd/system/nym-mixnode.service
