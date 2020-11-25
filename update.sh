@@ -50,6 +50,7 @@ fi
 function upgrade_nym () {
      #set -x
      sudo echo -n "" > /etc/systemd/system/nym-mixnode.service
+     cd /home/nym
      directory='NymMixNode'
 	
                 #id=$(echo "$i" | rev | cut -d/ -f1 | rev)
