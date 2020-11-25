@@ -49,11 +49,11 @@ function upgrade_nym () {
      directory='NymMixNode'
 	
                 #id=$(echo "$i" | rev | cut -d/ -f1 | rev)
-                printf '%s\n' "[Unit]" > nym-mixnode.service
-                printf '%s\n' "Description=Nym Mixnode (0.9.1)" >> nym-mixnode.service
-                printf '%s\n' "" >> nym-mixnode.service
-                printf '%s\n' "[Service]" >> nym-mixnode.service
-                printf '%s\n' "User=nym" >> nym-mixnode.service
+                printf '%s\n' "[Unit]" > /etc/systemd/system/nym-mixnode.service
+                printf '%s\n' "Description=Nym Mixnode (0.9.1)" >> /etc/systemd/system/nym-mixnode.service
+                printf '%s\n' "" >> /etc/systemd/system/nym-mixnode.service
+                printf '%s\n' "[Service]" >> /etc/systemd/system/nym-mixnode.service
+                printf '%s\n' "User=nym" >> /etc/systemd/system/nym-mixnode.service
                 printf '%s\n' "ExecStart=/home/nym/nym-mixnode run --id $directory" >> /etc/systemd/system/nym-mixnode.service
                 printf '%s\n' "KillSignal=SIGINT # gracefully kill the process when stopping the service. Allows node to unregister cleanly." >> /etc/systemd/system/nym-mixnode.service				
                 printf '%s\n' "Restart=on-failure" >> /etc/systemd/system/nym-mixnode.service
