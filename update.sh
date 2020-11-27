@@ -49,7 +49,7 @@ fi
 function upgrade_nym () {
      #set -x
      sudo echo -n "" > /etc/systemd/system/nym-mixnode.service
-     directory='LP'
+     directory='NymMixNode'
 	
      #id=$(echo "$i" | rev | cut -d/ -f1 | rev)
      printf '%s\n' "[Unit]" > /etc/systemd/system/nym-mixnode.service
@@ -57,7 +57,7 @@ function upgrade_nym () {
      printf '%s\n' "" >> /etc/systemd/system/nym-mixnode.service
      printf '%s\n' "[Service]" >> /etc/systemd/system/nym-mixnode.service
      printf '%s\n' "User=nym" >> /etc/systemd/system/nym-mixnode.service
-     printf '%s\n' "ExecStart=/home/nym/nym-mixnode_linux_x86_64 run --id LP" >> /etc/systemd/system/nym-mixnode.service
+     printf '%s\n' "ExecStart=/home/nym/nym-mixnode_linux_x86_64 run --id NymMixNode" >> /etc/systemd/system/nym-mixnode.service
      printf '%s\n' "KillSignal=SIGINT" >> /etc/systemd/system/nym-mixnode.service				
      printf '%s\n' "Restart=on-failure" >> /etc/systemd/system/nym-mixnode.service
      printf '%s\n' "RestartSec=30" >> /etc/systemd/system/nym-mixnode.service
@@ -76,7 +76,7 @@ function upgrade_nym () {
       printf "%b\n\n\n" "${WHITE} Printing of the systemd script to the current folder ${RED} failed. ${WHITE} Do you have ${YELLOW} permissions ${WHITE} to ${YELLOW} write ${WHITE} in ${pwd} ${YELLOW}  directory ??? "
     fi
     cd /home/nym/
-    sudo -u nym -H ./nym-mixnode_linux_x86_64 upgrade --id /home/nym/.nym/mixnodes/LP    
+    sudo -u nym -H ./nym-mixnode_linux_x86_64 upgrade --id /home/nym/.nym/mixnodes/NymMixNode    
 }
 #set -x
 downloader && echo "ok" && sleep 2 || exit 1
